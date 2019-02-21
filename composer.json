@@ -18,7 +18,11 @@
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "2amigos/yii2-usuario": "~1.0"
+        "2amigos/yii2-usuario": "~1.0",
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "chiliec/yii2-vote": "^4.2",
+        "2amigos/yii2-ckeditor-widget": "^2.1",
+        "mihaildev/yii2-ckeditor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

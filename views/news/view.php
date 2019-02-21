@@ -41,6 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-xs-6">
                 <time class="timeago badge" datetime="<?=$model->date;?>"></time>
             </div>
+            <?php echo \chiliec\vote\widgets\Vote::widget([
+                'model' => $model,
+            ]); ?>
         </div>
     </div>
 </div>

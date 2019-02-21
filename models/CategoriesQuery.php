@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[News]].
+ * This is the ActiveQuery class for [[Categories]].
  *
- * @see News
+ * @see Categories
  */
-class NewsQuery extends \yii\db\ActiveQuery
+class CategoriesQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class NewsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return News[]|array
+     * @return Categories[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class NewsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return News|array|null
+     * @return Categories|array|null
      */
     public function one($db = null)
     {

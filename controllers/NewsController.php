@@ -36,12 +36,14 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
+        $model = new News();
         $dataProvider = new ActiveDataProvider([
             'query' => News::find(),
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 

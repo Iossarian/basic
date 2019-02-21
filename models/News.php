@@ -31,12 +31,14 @@ class News extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'text'], 'required'],
+            [['title', 'text', 'category_id'], 'required'],
+            [['title'],'string','min'=>5,'max'=>20],
             [['title', 'text', 'image'], 'string'],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['date'], 'safe'],
             [['date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
             [['date'], 'default', 'value' => date('Y-m-d H:i:s')],
+            [['image'], 'default', 'value' => null],
         ];
     }
 
@@ -46,13 +48,19 @@ class News extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'text' => 'Text',
-            'date' => 'Date',
-            'image' => 'Image',
+            'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('app', 'Title'),
+            'text' => Yii::t('app', 'Text'),
+            'date' => Yii::t('app', 'Date'),
+            'image' => Yii::t('app', 'Image'),
+            'category_id' => Yii::t('app', 'Category'),
         ];
     }
+
+    public function getCategory () {
+        return $this->hasOne(\app\models\Categories::className(), ['id' => 'category_id']);
+    }
+
     public function uploadAndSave () {
         if ($this->validate()) {
             if (isset($this->imageFile)) {
@@ -63,6 +71,9 @@ class News extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+
+
     /**
      * {@inheritdoc}
      * @return NewsQuery the active query used by this AR class.

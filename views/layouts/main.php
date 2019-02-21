@@ -39,9 +39,9 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            !Yii::$app->user->isGuest ? (
-            ['label' => 'Create article', 'url' => ['/article/create']]
-            ) :
+
+            ['label' => Yii::t('app', 'Create article'), 'url' => ['/news/create']]
+           ,
                 ['label' => 'Registration', 'url' => ['/site/signup']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

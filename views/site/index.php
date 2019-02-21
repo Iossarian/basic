@@ -12,4 +12,5 @@ $this->title = 'My First Yii Blog';
         'layout' => '<div class="row">{items}</div><div class="text-center">{pager}</div>',
     ])
     ?>
+
 </div>

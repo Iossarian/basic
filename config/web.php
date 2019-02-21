@@ -6,11 +6,12 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','chiliec\vote\components\VoteBootstrap'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'language' => 'ru-RU',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -54,8 +55,24 @@ $config = [
             ],
         ],
 
+        'formatter' => [
+            'dateFormat'     => 'php:d-m-Y',
+            //'datetimeFormat' => 'php:d-m-Y в H:i:s',
+            'timeFormat'     => 'php:H:i:s',
+        ],
+
+
     ],
     'params' => $params,
+    'modules' => [
+        'vote' => [
+            'class' => 'chiliec\vote\Module',
+            'popOverEnabled' => true,
+            'models' => [
+                'app\models\News',
+            ],
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {

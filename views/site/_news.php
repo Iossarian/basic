@@ -1,6 +1,6 @@
 <?php
 
-/* @var $model \app\models\Post */
+/* @var $model \app\models\News */
 
 use yii\helpers\Url;
 use yii\bootstrap\Html;
@@ -20,6 +20,7 @@ use yii\bootstrap\Html;
                 <p><?=$model->text;?></p>
                 <hr>
                 <div class="text-right">
+                    <p><?=$model->category->title;?></p>
                     <p><span class="badge"><?= Yii::$app->formatter->asRelativeTime($model->date)?></span></p>
                 </div>
             </div>
