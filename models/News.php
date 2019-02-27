@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use phpDocumentor\Reflection\Types\This;
 use Yii;
 use yii\helpers\StringHelper;
 
@@ -25,6 +26,17 @@ class News extends \yii\db\ActiveRecord
         return 'news';
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->date = date('y-m-d', strtotime($this->date));
+            return true;
+        }
+
+    }
+
+
+
     /**
      * {@inheritdoc}
      */
@@ -32,15 +44,18 @@ class News extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'text', 'category_id'], 'required'],
-            [['title'],'string','min'=>5,'max'=>20],
+            [['title'],'string','min'=>3,'max'=>20],
             [['title', 'text', 'image'], 'string'],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['date'], 'safe'],
-            [['date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
-            [['date'], 'default', 'value' => date('Y-m-d H:i:s')],
+            [['date'], 'date', 'format' => "dd.MM.yyyy", 'min' => date("d.m.Y", strtotime('+1 days'))],
+            [['date'], 'default', 'value' => date('y-m-d')],
             [['image'], 'default', 'value' => null],
+            [['author_id'], 'default', 'value' => Yii::$app->user->identity->id],
         ];
     }
+
+
 
     /**
      * {@inheritdoc}
@@ -59,6 +74,9 @@ class News extends \yii\db\ActiveRecord
 
     public function getCategory () {
         return $this->hasOne(\app\models\Categories::className(), ['id' => 'category_id']);
+    }
+    public function getRating () {
+        return $this->hasOne(\app\models\AggregateRating::className(), ['target_id' => 'id']);
     }
 
     public function uploadAndSave () {
@@ -82,4 +100,19 @@ class News extends \yii\db\ActiveRecord
     {
         return new NewsQuery(get_called_class());
     }
+
+    public function behaviors()
+    {
+        return [
+
+		    'fileBehavior' => [
+            'class' => \nemmo\attachments\behaviors\FileBehavior::className()
+            ]
+
+	    ];
+    }
+
+
+
+
 }

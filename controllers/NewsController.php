@@ -55,6 +55,8 @@ class NewsController extends Controller
      */
     public function actionView($id)
     {
+        //$model = News::find()->where(['id' => $id])->one();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -73,7 +75,10 @@ class NewsController extends Controller
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->uploadAndSave())
             return $this->redirect(['view', 'id' => $model->id]);
+
         }
+
+
 
         return $this->render('create', [
             'model' => $model,
@@ -112,7 +117,7 @@ class NewsController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/']);
     }
 
     /**
@@ -129,5 +134,21 @@ class NewsController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionUpload()
+    {
+        $model = new News();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFiles = News::getInstance($model, 'imageFile');
+            if ($model->uploadAndSave()) {
+                // file is uploaded successfully
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
     }
 }

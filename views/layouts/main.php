@@ -38,18 +38,23 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => Yii::t('app','Home'), 'url' => ['/site/index']],
+            !Yii::$app->user->isGuest ? (
+            ['label' => Yii::t('app', 'Add wishes'), 'url' => ['/wishes/create']]
+            ) :
+            !Yii::$app->user->isGuest ? (
 
             ['label' => Yii::t('app', 'Create article'), 'url' => ['/news/create']]
-           ,
-                ['label' => 'Registration', 'url' => ['/site/signup']],
+
+           ) :
+                ['label' => Yii::t('app','Registration'), 'url' => ['/site/signup']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => Yii::t('app','Login'), 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Выйти (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
