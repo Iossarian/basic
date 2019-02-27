@@ -26,12 +26,29 @@ $config = [
             ],
         ],
         'db' => $db,
+
+
     ],
     'params' => $params,
-    /*
+/*
+    'modules' => [
+
+        'comment' => [
+            'class' => 'yii2mod\comments\Module',
+        ],
+
+
+],
+
     'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
+        'migrate' => [
+            'class' => \yii\console\controllers\MigrateController::class,
+            'migrationPath' => [
+                '@app/migrations',
+                '@app/vendor/yii2mod/yii2-comments/migrations',
+            ],
+            'migrationNamespaces' => [
+            ],
         ],
     ],
     */

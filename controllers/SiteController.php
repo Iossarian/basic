@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\AggregateRating;
+use app\models\Wishes;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -31,6 +33,7 @@ class SiteController extends Controller
             $user->username = $model->name;
             $user->email = $model->email;
             $user->password = \Yii::$app->security->generatePasswordHash($model->password);
+            $user->reg_date = date('Y-m-d H:i:s');
             if($user->save()){
                 return $this->goHome();
             }
@@ -85,8 +88,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $query = Wishes::find()->joinWith('rating')->orderBy(['aggregate_rating.rating' => SORT_DESC])->andWhere('date <= NOW()');
+//$query = Wishes::find();
         $dt_articles = new ActiveDataProvider([
-            'query' => News::find()->orderBy('date DESC'),
+            'query' => $query,
             'pagination' => [
                 'pageSize' => 3
             ]

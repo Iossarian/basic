@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Тестовый сайт',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log','chiliec\vote\components\VoteBootstrap'],
     'aliases' => [
@@ -13,6 +14,15 @@ $config = [
     ],
     'language' => 'ru-RU',
     'components' => [
+        'i18n' => [
+            'translations' => [
+                'yii2mod.comments' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@yii2mod/comments/messages',
+                ],
+                // ...
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'ZDKl08KJHWAp_HwwJiV8QsiY27Ivj6a-',
@@ -69,10 +79,28 @@ $config = [
             'class' => 'chiliec\vote\Module',
             'popOverEnabled' => true,
             'models' => [
-                'app\models\News',
+                'app\models\Wishes',
             ],
         ],
+        'comment' => [
+            'class' => 'yii2mod\comments\Module',
+            'controllerMap' => [
+                'migrate' => [
+                    'class' => \yii\console\controllers\MigrateController::class,
+                    'migrationPath' => [
+                        '@app/migrations',
+                        '@app/vendor/yii2mod/yii2-comments/migrations',
+                    ],
+                    'migrationNamespaces' => [
+                    ],
+                ],
+            ],
+        ],
+
+
     ],
+
+
 ];
 
 if (YII_ENV_DEV) {

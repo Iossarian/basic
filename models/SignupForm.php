@@ -8,6 +8,7 @@ class SignupForm extends Model{
     public $name;
     public $email;
     public $password;
+    public $reg_date;
 
     public function rules() {
         return [
@@ -22,6 +23,7 @@ class SignupForm extends Model{
             'name' => 'Имя',
             'email' => 'Электронная почта',
             'password' => 'Пароль',
+            'reg_date' => 'Дата регистрации'
         ];
     }
 }
